@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     setlocale(LC_ALL, "RUS");
-    
+    List * list = new List;
     GetStartMenu();
 
     while(true) {
@@ -15,7 +15,9 @@ int main() {
         cin >> cmd;
 
         if(cmd == "start") {
-
+            StartSource(list);
+            ClearWindow();
+            list->PrintList();
         } else if(cmd == "add") {
 
         } else if(cmd == "delete") {
@@ -25,10 +27,11 @@ int main() {
         } else if(cmd == "help") {
 
         } else if(cmd == "exit") {
-
+            break;
         } else {
             cout << "¬ведена не правильна€ команда!\n";
         }
     }
+    delete list;
     return 0;
 }
