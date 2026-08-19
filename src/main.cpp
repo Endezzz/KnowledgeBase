@@ -1,4 +1,5 @@
 #include <iostream>
+#include <clocale>
 #include <string>
 #include "../include/functions.h"
 

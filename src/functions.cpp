@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <cstdlib>
@@ -41,13 +42,122 @@ List :: ~List() {}
 void List :: PrintList() {
     if(size != 0) {
         Source * source = start;
+        int maxsize = this->maxsize + 1;
 
+        // Отображение шапки таблицы
+        {
+            cout << " " << setw(maxsize) << setfill('_');
+            cout << " " << setw(maxsize) << setfill('_');
+            cout << " " << setw(maxsize) << setfill('_');
+            cout << " " << setw(maxsize) << setfill('_');
+            cout << " " << setw(maxsize) << setfill('_');
+            cout << " " << setw(maxsize) << setfill('_');
+            cout << " " << setw(maxsize) << setfill('_') << " ";
+
+            cout << endl;
+
+            cout << "|" << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+
+            cout << endl;
+        }
+        {
+            string name = "Название";
+            string type = "Тип";
+            string origin = "Кто посоветовал?";
+            string about = "О чём источник?";
+            string reason = "Зачем изучать?";
+            string status = "Статус";
+            string significance = "Приоритет";
+
+            cout << "|" << setw(name.size()/2 + maxsize/2) << setfill(' ') << name << setw(maxsize - name.size()/2 - maxsize/2) << setfill(' ') << "|";
+            cout << setw(type.size()/2 + maxsize/2) << setfill(' ') << type << setw(maxsize - type.size()/2 - maxsize/2) << setfill(' ') << "|";
+            cout << setw(origin.size()/2 + maxsize/2) << setfill(' ') << origin << setw(maxsize - origin.size()/2 - maxsize/2) << setfill(' ') << "|";
+            cout << setw(about.size()/2 + maxsize/2) << setfill(' ') << about << setw(maxsize - about.size()/2 - maxsize/2) << setfill(' ') << "|";
+            cout << setw(reason.size()/2 + maxsize/2) << setfill(' ') << reason << setw(maxsize - reason.size()/2 - maxsize/2) << setfill(' ') << "|";
+            cout << setw(status.size()/2 + maxsize/2) << setfill(' ') << status << setw(maxsize - status.size()/2 - maxsize/2) << setfill(' ') << "|";
+            cout << setw(significance.size()/2 + maxsize/2) << setfill(' ') << significance << setw(maxsize - significance.size()/2 - maxsize/2) << setfill(' ') << "|";
+
+            cout << endl;
+
+            cout << "|" << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+
+            cout << endl;
+        }
+        
         while(source->next != nullptr) {
-            cout << source->index << " " << source->type << " " << source->origin << " " << source->about << " "  << source->reason << " " << source->status << " " << source->significance << endl;
+            cout << "|" << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+            cout << setw(maxsize) << setfill(' ') << "|";
+
+            cout << endl;
+
+            cout << "|" << setw(maxsize-1) << setfill(' ') << source->name << "|";
+            cout << setw(maxsize-1) << setfill(' ') << source->type << "|";
+            cout << setw(maxsize-1) << setfill(' ') << source->origin << "|";
+            cout << setw(maxsize-1) << setfill(' ') << source->about << "|";
+            cout << setw(maxsize-1) << setfill(' ') << source->reason << "|";
+            cout << setw(maxsize-1) << setfill(' ') << source->status << "|";
+            cout << setw(maxsize-1) << setfill(' ') << source->significance << "|";
+
+            cout << endl;
+
+            cout << "|" << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+            cout << setw(maxsize) << setfill('_') << "|";
+
+            cout << endl;
             source = source->next;
         }
 
-        cout << source->index << " " << source->type << " " << source->origin << " " << source->about << " "  << source->reason << " " << source->status << " " << source->significance << endl;
+        cout << "|" << setw(maxsize) << setfill(' ') << "|";
+        cout << setw(maxsize) << setfill(' ') << "|";
+        cout << setw(maxsize) << setfill(' ') << "|";
+        cout << setw(maxsize) << setfill(' ') << "|";
+        cout << setw(maxsize) << setfill(' ') << "|";
+        cout << setw(maxsize) << setfill(' ') << "|";
+        cout << setw(maxsize) << setfill(' ') << "|";
+
+        cout << endl;
+
+        cout << "|" << setw(maxsize-1) << setfill(' ') << source->name << "|";
+        cout << setw(maxsize-1) << setfill(' ') << source->type << "|";
+        cout << setw(maxsize-1) << setfill(' ') << source->origin << "|";
+        cout << setw(maxsize-1) << setfill(' ') << source->about << "|";
+        cout << setw(maxsize-1) << setfill(' ') << source->reason << "|";
+        cout << setw(maxsize-1) << setfill(' ') << source->status << "|";
+        cout << setw(maxsize-1) << setfill(' ') << source->significance << "|";
+
+        cout << endl;
+
+        cout << "|" << setw(maxsize) << setfill('_') << "|";
+        cout << setw(maxsize) << setfill('_') << "|";
+        cout << setw(maxsize) << setfill('_') << "|";
+        cout << setw(maxsize) << setfill('_') << "|";
+        cout << setw(maxsize) << setfill('_') << "|";
+        cout << setw(maxsize) << setfill('_') << "|";
+        cout << setw(maxsize) << setfill('_') << "|";
+
+        cout << endl;
     }
 }
 
@@ -102,7 +212,7 @@ void GetStartMenu() {
     cout << "|            K N O W L E D G E   B A S E            |\n";
     cout << "|___________________________________________________|\n";
     cout << "|                           |                       |\n";
-    cout << "| add {Индекс источника}    |   добавить источник   |\n";
+    cout << "| add {Название источника}  |   добавить источник   |\n";
     cout << "|___________________________|_______________________|\n";
     cout << "|                           |                       |\n";
     cout << "| delete {Индекс источника} |    удалить источник   |\n";
@@ -165,6 +275,10 @@ void StartSource(List * list) {
 
         fin >> sorce->statusFlag;
         fin.ignore();
+
+        getline(fin, str);
+        list->SetMaxSize(CheckLength(str, list->GetMaxSize()));
+        sorce->link = str;
 
         getline(fin, str);
         list->SetMaxSize(CheckLength(str, list->GetMaxSize()));
