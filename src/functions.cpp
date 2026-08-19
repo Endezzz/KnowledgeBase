@@ -112,8 +112,26 @@ void List :: PrintList() {
             cout << setw(maxsize-1) << setfill(' ') << source->origin << "|";
             cout << setw(maxsize-1) << setfill(' ') << source->about << "|";
             cout << setw(maxsize-1) << setfill(' ') << source->reason << "|";
-            cout << setw(maxsize-1) << setfill(' ') << source->status << "|";
-            cout << setw(maxsize-1) << setfill(' ') << source->significance << "|";
+
+            if(source->statusFlag == 1)
+                cout << "\033[31m";
+            else if(source->statusFlag == 2) 
+                cout << "\033[33m";
+            else 
+                cout << "\033[32m";
+            cout << setw(maxsize-1) << setfill(' ') << source->status;
+            cout << "\033[0m";
+            cout << "|";
+
+            if(source->significanceFlag == 1)
+                cout << "\033[32m";
+            else if(source->significanceFlag == 2) 
+                cout << "\033[33m";
+            else 
+                cout << "\033[31m";
+            cout << setw(maxsize-1) << setfill(' ') << source->significance;
+            cout << "\033[0m";
+            cout << "|";
 
             cout << endl;
 
@@ -144,8 +162,26 @@ void List :: PrintList() {
         cout << setw(maxsize-1) << setfill(' ') << source->origin << "|";
         cout << setw(maxsize-1) << setfill(' ') << source->about << "|";
         cout << setw(maxsize-1) << setfill(' ') << source->reason << "|";
-        cout << setw(maxsize-1) << setfill(' ') << source->status << "|";
-        cout << setw(maxsize-1) << setfill(' ') << source->significance << "|";
+
+        if(source->statusFlag == 1)
+            cout << "\033[31m";
+        else if(source->statusFlag == 2) 
+            cout << "\033[33m";
+        else 
+            cout << "\033[32m";
+        cout << setw(maxsize-1) << setfill(' ') << source->status;
+        cout << "\033[0m";
+        cout << "|";
+
+        if(source->significanceFlag == 1)
+            cout << "\033[32m";
+        else if(source->significanceFlag == 2) 
+            cout << "\033[33m";
+        else 
+            cout << "\033[31m";
+        cout << setw(maxsize-1) << setfill(' ') << source->significance;
+        cout << "\033[0m";
+        cout << "|";
 
         cout << endl;
 
