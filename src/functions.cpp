@@ -200,16 +200,20 @@ void List :: PrintList() {
 void List :: AddSource() {
     Source * prev = GetEnd();
     Source * newSource = new Source;
-    prev->next = newSource;
+    if(size > 0) {
+        prev->next = newSource;
+    } else {
+        start = newSource;
+    }
     newSource->prev = prev;
     SetEnd(newSource);
 
     newSource->index = GetSize();
     SetSize(GetSize()+1);
-    cin.ignore();
     cout << endl;
     string name;
     cout << "Введите название источника: ";
+    cin.ignore();
     getline(cin, name);
     SetMaxSize(CheckLength(name, GetMaxSize()));
     newSource->name = name;
@@ -251,6 +255,7 @@ void List :: AddSource() {
     char statusFlag;
     while(true) {
         cin >> statusFlag;
+        cin.ignore();
         if(statusFlag == '1') {
             status = "Не начато";
             break;
@@ -274,6 +279,7 @@ void List :: AddSource() {
     string link;
     cout << "Укажите ссылку на источник: ";
     cin >> link;
+    cin.ignore();
     newSource->link = link;
     cout << endl;
 
@@ -285,6 +291,7 @@ void List :: AddSource() {
     char significanceFlag;
     while(true) {
         cin >> significanceFlag;
+        cin.ignore();
         if(significanceFlag == '1') {
             significance = "Не важно";
             break;
@@ -309,7 +316,38 @@ void List :: AddSource() {
 }
 
 void List :: DeleteSource() {
-
+    if(size > 0) {
+        Source * deleteSource = start;
+        string name;
+        cout << "Введите название источника: ";
+        cin.ignore();
+        getline(cin, name);
+        while(deleteSource != end && deleteSource->name != name) {
+            deleteSource = deleteSource->next;
+        }
+        if(deleteSource->name == name) {
+            if(deleteSource == start && deleteSource == end) {
+                start = nullptr;
+                end = nullptr;
+            } else if(deleteSource == end) {
+                deleteSource->prev->next = nullptr;
+                end = deleteSource->prev;
+            } else if(deleteSource == start) {
+                deleteSource->next->prev = nullptr;
+                start = deleteSource->next;
+            } else {
+                deleteSource->prev->next = deleteSource->next;
+                deleteSource->next->prev = deleteSource->prev;
+            }
+            size--;
+            delete deleteSource;
+        } else {
+            cout << "Источник с заданным именем не найден!\n";
+        }
+    } else {
+        cout << "Список источников пуст!\n";
+    }
+    system("pause");
 }
 
 void List :: UpdateSource() {

@@ -17,6 +17,8 @@ int main() {
     List * list = new List;
     GetStartMenu();
 
+    bool StartFlag = false;
+
 
     while(true) {
         string cmd;
@@ -24,15 +26,18 @@ int main() {
         cin >> cmd;
 
         if(cmd == "start") {
-            if(list->GetSize() == 0) LaunchTable(list);
+            if(!StartFlag) LaunchTable(list);
             ClearWindow();
             list->PrintList();
+            StartFlag = true;
         } else if(cmd == "add") {
             list->AddSource();
             ClearWindow();
             list->PrintList();
         } else if(cmd == "delete") {
             list->DeleteSource();
+            ClearWindow();
+            list->PrintList();
         } else if(cmd == "update") {
             list->UpdateSource();
         } else if(cmd == "open") {
