@@ -128,7 +128,7 @@ void List :: PrintList() {
             else if(source->significanceFlag == 2) 
                 cout << "\033[33m";
             else 
-                cout << "\033[31m";
+                cout << "\033[32m";
             cout << setw(maxsize-1) << setfill(' ') << source->significance;
             cout << "\033[0m";
             cout << "|";
@@ -198,7 +198,114 @@ void List :: PrintList() {
 }
 
 void List :: AddSource() {
+    Source * prev = GetEnd();
+    Source * newSource = new Source;
+    prev->next = newSource;
+    newSource->prev = prev;
+    SetEnd(newSource);
 
+    newSource->index = GetSize();
+    SetSize(GetSize()+1);
+    cin.ignore();
+    cout << endl;
+    string name;
+    cout << "Введите название источника: ";
+    getline(cin, name);
+    SetMaxSize(CheckLength(name, GetMaxSize()));
+    newSource->name = name;
+    cout << endl;
+
+    string type;
+    cout << "Тип источника: ";
+    getline(cin, type);
+    SetMaxSize(CheckLength(type, GetMaxSize()));
+    newSource->type = type;
+    cout << endl;
+
+    string origin;
+    cout << "Кто посоветовал?: ";
+    getline(cin, origin);
+    SetMaxSize(CheckLength(origin, GetMaxSize()));
+    newSource->origin = origin;
+    cout << endl;
+
+    string about;
+    cout << "О чём источник?: ";
+    getline(cin, about);
+    SetMaxSize(CheckLength(about, GetMaxSize()));
+    newSource->about = about;
+    cout << endl;
+
+    string reason;
+    cout << "Зачем изучать?: ";
+    getline(cin, reason);
+    SetMaxSize(CheckLength(reason, GetMaxSize()));
+    newSource->reason = reason;
+    cout << endl;
+
+    string status;
+    cout << "[" << 1 << "]" << " - " << " Не начато\n";
+    cout << "[" << 2 << "]" << " - " << " В процессе\n";
+    cout << "[" << 3 << "]" << " - " << " Изучен\n";
+    cout << "Укажите статус освоения источника: ";
+    char statusFlag;
+    while(true) {
+        cin >> statusFlag;
+        if(statusFlag == '1') {
+            status = "Не начато";
+            break;
+        }
+        else if(statusFlag == '2') {
+            status = "В процессе";
+            break;
+        }
+        else if(statusFlag == '3') {
+            status = "Изучен";
+            break;
+        }
+        cout << "\nВы ввели неправильное значение!\n";
+        cout << "Укажите статус освоения источника: ";
+    }
+
+    newSource->statusFlag = statusFlag - 48;
+    newSource->status = status;
+    cout << endl;
+
+    string link;
+    cout << "Укажите ссылку на источник: ";
+    cin >> link;
+    newSource->link = link;
+    cout << endl;
+
+    string significance;
+    cout << "[" << 1 << "]" << " - " << " Не важно\n";
+    cout << "[" << 2 << "]" << " - " << " Нейтрально\n";
+    cout << "[" << 3 << "]" << " - " << " Важно\n";
+    cout << "Укажите приоритет освоения источника: ";
+    char significanceFlag;
+    while(true) {
+        cin >> significanceFlag;
+        if(significanceFlag == '1') {
+            significance = "Не важно";
+            break;
+        }
+        else if(significanceFlag == '2') {
+            significance = "Нейтрально";
+            break;
+        }
+        else if(significanceFlag == '3') {
+            significance = "Важно";
+            break;
+        }
+        cout << "\nВы ввели неправильное значение!\n";
+        cout << "Укажите важность освоения источника: ";
+    }
+
+    newSource->significanceFlag = significanceFlag - 48;
+    newSource->significance = significance;
+    cout << endl;
+    cout << "Источник успешно добавлен!\n";
+    system("pause");
 }
 
 void List :: DeleteSource() {
@@ -243,31 +350,34 @@ void List :: SetMaxSize(int NewMaxSize) {
 
 
 void GetStartMenu() {
-    cout << " ___________________________________________________\n";
-    cout << "|                                                   |\n";
-    cout << "|            K N O W L E D G E   B A S E            |\n";
-    cout << "|___________________________________________________|\n";
-    cout << "|                           |                       |\n";
-    cout << "| add {Название источника}  |   добавить источник   |\n";
-    cout << "|___________________________|_______________________|\n";
-    cout << "|                           |                       |\n";
-    cout << "| delete {Индекс источника} |    удалить источник   |\n";
-    cout << "|___________________________|_______________________|\n";
-    cout << "|                           |                       |\n";
-    cout << "| update {Индекс источника} | редактровать источник |\n";
-    cout << "|___________________________|_______________________|\n";
-    cout << "|                           |                       |\n";
-    cout << "|           start           | отобразить источники  |\n";
-    cout << "|___________________________|_______________________|\n";
-    cout << "|                           |                       |\n";
-    cout << "|           help            |   отобразить команды  |\n";
-    cout << "|___________________________|_______________________|\n";
-    cout << "|                           |                       |\n";
-    cout << "|           exit            |  завершить программу  |\n";
-    cout << "|___________________________|_______________________|\n";
+    cout << " _____________________________________________________\n";
+    cout << "|                                                     |\n";
+    cout << "|             K N O W L E D G E   B A S E             |\n";
+    cout << "|_____________________________________________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "|  add {Название источника}   |   добавить источник   |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "| delete {Название источника} |    удалить источник   |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "| update {Название источника} | редактровать источник |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "|             start           |  отобразить источники |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "|  open {Название источника}  |   открыть в браузере  |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "|             help            |   отобразить команды  |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "|             exit            |  завершить программу  |\n";
+    cout << "|_____________________________|_______________________|\n";
 }
 
-void StartSource(List * list) {
+void LaunchTable(List * list) {
     ifstream fin ("../base/database.txt");
     string str;
     Source * sorce;
@@ -336,8 +446,9 @@ void StartSource(List * list) {
     fin.close();
 }
 
-void AddNewSource() {
-
+void UpdateTable(List * list) {
+    ofstream out("../base/database.txt", ios::trunc);
+    out.close();
 }
 
 void ClearWindow() {

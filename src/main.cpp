@@ -9,9 +9,14 @@ using namespace std;
 int main() {
     HWND hwnd = GetConsoleWindow();
     ShowWindow(hwnd, SW_SHOWMAXIMIZED);
-    setlocale(LC_ALL, "RUS");
+
+    SetConsoleCP(1251);      
+    SetConsoleOutputCP(1251); 
+    std::setlocale(LC_ALL, ".1251");
+
     List * list = new List;
     GetStartMenu();
+
 
     while(true) {
         string cmd;
@@ -19,15 +24,19 @@ int main() {
         cin >> cmd;
 
         if(cmd == "start") {
-            StartSource(list);
+            if(list->GetSize() == 0) LaunchTable(list);
             ClearWindow();
             list->PrintList();
         } else if(cmd == "add") {
-
+            list->AddSource();
+            ClearWindow();
+            list->PrintList();
         } else if(cmd == "delete") {
-
+            list->DeleteSource();
         } else if(cmd == "update") {
-
+            list->UpdateSource();
+        } else if(cmd == "open") {
+            
         } else if(cmd == "help") {
             ClearWindow();
             GetStartMenu();

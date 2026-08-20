@@ -7,7 +7,7 @@ struct Source;
 class List {
     private:
         int size = 0;
-        int maxsize = 0;
+        int maxsize = 11;
         Source * start = nullptr;
         Source * end = nullptr;
     public:
@@ -29,15 +29,11 @@ class List {
 
 void GetStartMenu();
 
-void StartSource(List * list);
+void LaunchTable(List * list);
 
 void ClearWindow();
 
-void AddNewSource();
-
-void DeleteSource();
-
-void UpdateSource();
+void UpdateTable();
 
 void ShowSourceList();
 
