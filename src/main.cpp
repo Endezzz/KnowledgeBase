@@ -10,6 +10,21 @@ int main() {
     HWND hwnd = GetConsoleWindow();
     ShowWindow(hwnd, SW_SHOWMAXIMIZED);
 
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hConsole == INVALID_HANDLE_VALUE) return 1;
+
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(hConsole, &csbi);
+
+    int windowWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    int windowHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+
+    COORD newBufferSize;
+    newBufferSize.X = 1000; 
+    newBufferSize.Y = windowHeight; 
+
+    SetConsoleScreenBufferSize(hConsole, newBufferSize);
+
     SetConsoleCP(1251);      
     SetConsoleOutputCP(1251); 
     std::setlocale(LC_ALL, ".1251");
@@ -24,6 +39,7 @@ int main() {
         string cmd;
         cout << "¬ведите команду: ";
         cin >> cmd;
+        cin.ignore();
 
         if(cmd == "start") {
             if(!StartFlag) LaunchTable(list);
@@ -40,6 +56,8 @@ int main() {
             list->PrintList();
         } else if(cmd == "update") {
             list->UpdateSource();
+            ClearWindow();
+            list->PrintList();
         } else if(cmd == "open") {
             
         } else if(cmd == "help") {

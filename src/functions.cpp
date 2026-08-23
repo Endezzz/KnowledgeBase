@@ -213,7 +213,6 @@ void List :: AddSource() {
     cout << endl;
     string name;
     cout << "Введите название источника: ";
-    cin.ignore();
     getline(cin, name);
     SetMaxSize(CheckLength(name, GetMaxSize()));
     newSource->name = name;
@@ -305,7 +304,7 @@ void List :: AddSource() {
             break;
         }
         cout << "\nВы ввели неправильное значение!\n";
-        cout << "Укажите важность освоения источника: ";
+        cout << "Укажите приоритет освоения источника: ";
     }
 
     newSource->significanceFlag = significanceFlag - 48;
@@ -320,7 +319,6 @@ void List :: DeleteSource() {
         Source * deleteSource = start;
         string name;
         cout << "Введите название источника: ";
-        cin.ignore();
         getline(cin, name);
         while(deleteSource != end && deleteSource->name != name) {
             deleteSource = deleteSource->next;
@@ -351,7 +349,147 @@ void List :: DeleteSource() {
 }
 
 void List :: UpdateSource() {
+    if(size > 0) {
+        Source * source;
+        string name;
+        cout << endl;
+        while(true) {
+            source = start;
+            cout << "Укажите название источника, который хотите изменить: ";
+            getline(cin, name);
+            while(source->next != nullptr) {
+                if(source->name == name) {
+                    break;
+                }
+                source = source->next;
+            }
+            if(source->name == name) {
+                break;
+            }
+            cout << "Источника с указанным именем не существует!\n";
+            cout << endl;
+        }
 
+        string ptr;
+        cout << "Чтобы завершить редактирование введите save!\n";
+        cout << "Возможные поля: name, type, origin, about, reason, status, link, significance\n";
+        while(true) {
+            cout << "Укажите поле, которое хотите изменить: ";
+            getline(cin, ptr);
+            cout << endl;
+            if(ptr == "name") {
+                cout << "Введите новое имя для источника: ";
+                getline(cin, name);
+                SetMaxSize(CheckLength(name, GetMaxSize()));
+                source->name = name;
+                cout << endl;
+            } else if(ptr == "type") {
+                string type;
+                cout << "Введите новый тип для источника: ";
+                getline(cin, type);
+                SetMaxSize(CheckLength(type, GetMaxSize()));
+                source->type = type; 
+                cout << endl;
+            } else if(ptr == "origin") {
+                string origin;
+                cout << "Введите новую ифнормацию о том, кто посоветовал данный источник: ";
+                getline(cin, origin);
+                SetMaxSize(CheckLength(origin, GetMaxSize()));
+                source->origin = origin;
+                cout << endl;
+            } else if(ptr == "about") {
+                string about;
+                cout << "Введите новую информацию, о чём данный источник: ";
+                getline(cin, about);
+                SetMaxSize(CheckLength(about, GetMaxSize()));
+                source->about = about;
+                cout << endl;
+            } else if(ptr == "reason") {
+                string reason;
+                cout << "Введите новое обоснование для изучения данного источника: "; 
+                getline(cin, reason);
+                SetMaxSize(CheckLength(reason, GetMaxSize()));
+                source->reason = reason;
+                cout << endl;
+            } else if(ptr == "status") {
+                string status;
+                cout << "[" << 1 << "]" << " - " << " Не начато\n";
+                cout << "[" << 2 << "]" << " - " << " В процессе\n";
+                cout << "[" << 3 << "]" << " - " << " Изучен\n";
+                cout << "Укажите новый статус освоения источника: ";
+                char statusFlag;
+                while(true) {
+                    cin >> statusFlag;
+                    cin.ignore();
+                    if(statusFlag == '1') {
+                        status = "Не начато";
+                        break;
+                    }
+                    else if(statusFlag == '2') {
+                        status = "В процессе";
+                        break;
+                    }
+                    else if(statusFlag == '3') {
+                        status = "Изучен";
+                        break;
+                    }
+                    cout << "\nВы ввели неправильное значение!\n";
+                    cout << "Укажите новый статус освоения источника: ";
+                }
+
+                source->statusFlag = statusFlag - 48;
+                source->status = status;
+                cout << endl;
+            } else if(ptr == "link") {
+                string link;
+                cout << "Введите новую ссылку на источник: ";
+                getline(cin, link);
+                source->link = link;
+                cout << endl;
+            } else if(ptr == "significance") {
+                string significance;
+                cout << "[" << 1 << "]" << " - " << " Не важно\n";
+                cout << "[" << 2 << "]" << " - " << " Нейтрально\n";
+                cout << "[" << 3 << "]" << " - " << " Важно\n";
+                cout << "Укажите новый приоритет освоения источника: ";
+                char significanceFlag;
+                while(true) {
+                    cin >> significanceFlag;
+                    cin.ignore();
+                    if(significanceFlag == '1') {
+                        significance = "Не важно";
+                        break;
+                    }
+                    else if(significanceFlag == '2') {
+                        significance = "Нейтрально";
+                        break;
+                    }
+                    else if(significanceFlag == '3') {
+                        significance = "Важно";
+                        break;
+                    }
+                    cout << "\nВы ввели неправильное значение!\n";
+                    cout << "Укажите новый приоритет освоения источника: ";
+                }
+
+                source->significanceFlag = significanceFlag - 48;
+                source->significance = significance;
+                cout << endl;
+            } else if(ptr == "save") {
+                cout << "Изменения успешно внесены!\n";
+                cout << endl;
+                break;
+            } else {
+                cout << "Неправильное указано название поля!\n";
+                cout << "Попробуйте ещё раз...\n";
+                cout << endl;
+            }
+        }
+    } else {
+        cout << "В таблице отсутвуют источники!\n";
+        cout << endl;
+    }
+    system("pause");
 }
 
 int List :: GetSize() {
