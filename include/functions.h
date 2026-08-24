@@ -25,6 +25,8 @@ class List {
         void SetEnd(Source * NewEnd);
         int GetMaxSize();
         void SetMaxSize(int NewMaxSize);
+        bool CheckSource(string name);
+        void OpenLink();
 };
 
 void GetStartMenu();
@@ -33,7 +35,7 @@ void LaunchTable(List * list);
 
 void ClearWindow();
 
-void UpdateTable();
+void UpdateTable(List * list);
 
 void ShowSourceList();
 

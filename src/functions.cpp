@@ -211,9 +211,17 @@ void List :: AddSource() {
     newSource->index = GetSize();
     SetSize(GetSize()+1);
     cout << endl;
+
     string name;
     cout << "¬ведите название источника: ";
     getline(cin, name);
+    if(size > 0) {
+        while(CheckSource(name)) {
+            cout << "»сточник с заданным именем уже существует!\n";
+            cout << "¬ведите название источника: ";
+            getline(cin, name);
+        }
+    }
     SetMaxSize(CheckLength(name, GetMaxSize()));
     newSource->name = name;
     cout << endl;
@@ -324,6 +332,11 @@ void List :: DeleteSource() {
             deleteSource = deleteSource->next;
         }
         if(deleteSource->name == name) {
+            Source * source = deleteSource;
+            while(source != end) { 
+                source = source->next;
+                source->index -= 1;
+            }
             if(deleteSource == start && deleteSource == end) {
                 start = nullptr;
                 end = nullptr;
@@ -524,6 +537,43 @@ void List :: SetMaxSize(int NewMaxSize) {
     maxsize = NewMaxSize;
 }
 
+bool List :: CheckSource(string name) {
+    Source * source = start;
+
+    while(source != end) {
+        if(source->name == name) {
+            break;
+        }
+        source = source->next;
+    }
+
+    if(source->name == name) {
+        return true;
+    }
+    return false;
+}
+
+void List :: OpenLink() {
+    Source * source = start;
+    string name;
+    cout << "¬ведите название источника, на который хотите перейти: ";
+    getline(cin, name);
+
+    while(source != end) {
+        if(source->name == name) {
+            break;
+        }
+        source = source->next;
+    }
+    string cmd = "start " + source->link;
+    if(source->name == name) {
+        string cmd = "start " + source->link;
+        system(cmd.c_str());
+    } else {
+        cout << "»сточника с данным наванием не существует!\n";
+        system("pause");
+    }
+}
 
 void GetStartMenu() {
     cout << " _____________________________________________________\n";
@@ -599,7 +649,6 @@ void LaunchTable(List * list) {
         fin.ignore();
 
         getline(fin, str);
-        list->SetMaxSize(CheckLength(str, list->GetMaxSize()));
         sorce->link = str;
 
         getline(fin, str);
@@ -624,6 +673,37 @@ void LaunchTable(List * list) {
 
 void UpdateTable(List * list) {
     ofstream out("../base/database.txt", ios::trunc);
+
+    Source * source = list->GetStart();
+    
+    if(list->GetSize() > 0) {
+        while(source != list->GetEnd()) {
+            out  << source->index << "\n";
+            out << source->name << "\n";
+            out << source->type << "\n";
+            out << source->origin << "\n";
+            out << source->about << "\n";
+            out << source->reason << "\n";
+            out << source->status << "\n";
+            out << source->statusFlag << "\n";
+            out << source->link << "\n";
+            out << source->significance << "\n";
+            out << source->significanceFlag << "\n";
+            source = source->next;
+        }
+        out  << source->index << "\n";
+        out << source->name << "\n";
+        out << source->type << "\n";
+        out << source->origin << "\n";
+        out << source->about << "\n";
+        out << source->reason << "\n";
+        out << source->status << "\n";
+        out << source->statusFlag << "\n";
+        out << source->link << "\n";
+        out << source->significance << "\n";
+        out << source->significanceFlag << "\n";
+    }
+
     out.close();
 }
 

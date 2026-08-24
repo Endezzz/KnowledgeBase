@@ -59,11 +59,14 @@ int main() {
             ClearWindow();
             list->PrintList();
         } else if(cmd == "open") {
-            
+            list->OpenLink();
+            ClearWindow();
+            list->PrintList();
         } else if(cmd == "help") {
             ClearWindow();
             GetStartMenu();
         } else if(cmd == "exit") {
+            UpdateTable(list);
             cout << "До свидания!\n";
             system("pause");
             break;
