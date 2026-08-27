@@ -62,7 +62,11 @@ int main() {
             list->OpenLink();
             ClearWindow();
             list->PrintList();
-        } else if(cmd == "help") {
+        } else if(cmd == "sort") {
+            list->SortList();
+            ClearWindow();
+            list->PrintList();
+        }else if(cmd == "help") {
             ClearWindow();
             GetStartMenu();
         } else if(cmd == "exit") {

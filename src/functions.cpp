@@ -26,12 +26,12 @@ struct Source {
     string reason;
 
     string status;
-    int statusFlag;
+    int statusFlag = 0;
 
     string link;
 
     string significance;
-    int significanceFlag;
+    int significanceFlag = 0;
 };
 
 
@@ -128,7 +128,7 @@ void List :: PrintList() {
             else if(source->significanceFlag == 2) 
                 cout << "\033[33m";
             else 
-                cout << "\033[32m";
+                cout << "\033[31m";
             cout << setw(maxsize-1) << setfill(' ') << source->significance;
             cout << "\033[0m";
             cout << "|";
@@ -575,6 +575,55 @@ void List :: OpenLink() {
     }
 }
 
+void List :: SortStatus() {
+    for(int i = 0; i < size; i++) {
+        for(Source * source1 = start->next; source1 != nullptr;) {
+            Source * NewSource = source1->next;
+            if(source1->statusFlag > source1->prev->statusFlag) {
+
+                Source * prev = source1->prev->prev;
+                Source * next = source1->prev;
+
+                if(source1->prev->prev != nullptr)
+                    source1->prev->prev->next = source1;
+
+                if(source1->next != nullptr)
+                    source1->next->prev = source1->prev;
+
+                if(source1->prev == start)
+                    start = source1;
+                if(source1 == end)
+                    end = source1->prev;
+            
+                source1->prev->next = source1->next;
+                source1->prev->prev = source1;
+
+                source1->prev = prev;
+                source1->next = next;
+            }
+            source1 = NewSource;
+        }
+    }
+}
+
+void List :: SortList() {
+    string cmd;
+    cout << "Сортировка по важжности: significance\n";
+    cout << "Сортировка по статусу: status\n";
+    while(true) {
+        cout << "Введите по какому полю будет осуществляться сортировка: ";
+        getline(cin, cmd);
+        if(cmd == "status") {
+            SortStatus();
+            break;
+        } else if(cmd == "significance") {
+            break;
+        }  else {
+            cout << "Указанное поле введене неправильно!\n";
+        }
+    }
+}
+
 void GetStartMenu() {
     cout << " _____________________________________________________\n";
     cout << "|                                                     |\n";
@@ -594,6 +643,9 @@ void GetStartMenu() {
     cout << "|_____________________________|_______________________|\n";
     cout << "|                             |                       |\n";
     cout << "|  open {Название источника}  |   открыть в браузере  |\n";
+    cout << "|_____________________________|_______________________|\n";
+    cout << "|                             |                       |\n";
+    cout << "|             sort            | отсортировать таблицу |\n";
     cout << "|_____________________________|_______________________|\n";
     cout << "|                             |                       |\n";
     cout << "|             help            |   отобразить команды  |\n";

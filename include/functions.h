@@ -27,6 +27,10 @@ class List {
         void SetMaxSize(int NewMaxSize);
         bool CheckSource(string name);
         void OpenLink();
+        void SortList();
+        void SortStatus();
+        void SortSignificance();
+        void SortIndex();
 };
 
 void GetStartMenu();
