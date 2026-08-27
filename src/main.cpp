@@ -11,19 +11,9 @@ int main() {
     ShowWindow(hwnd, SW_SHOWMAXIMIZED);
 
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (hConsole == INVALID_HANDLE_VALUE) return 1;
 
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-
-    int windowWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-    int windowHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-
-    COORD newBufferSize;
-    newBufferSize.X = 1000; 
-    newBufferSize.Y = windowHeight; 
-
-    SetConsoleScreenBufferSize(hConsole, newBufferSize);
+    COORD bufferSize = {500, 500};
+    SetConsoleScreenBufferSize(hConsole, bufferSize);
 
     SetConsoleCP(1251);      
     SetConsoleOutputCP(1251); 
