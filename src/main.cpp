@@ -69,7 +69,11 @@ int main() {
         }else if(cmd == "help") {
             ClearWindow();
             GetStartMenu();
+            system("pause");
+            ClearWindow();
+            list->PrintList();
         } else if(cmd == "exit") {
+            list->SortIndex();
             UpdateTable(list);
             cout << "До свидания!\n";
             system("pause");

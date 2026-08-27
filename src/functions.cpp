@@ -579,7 +579,69 @@ void List :: SortStatus() {
     for(int i = 0; i < size; i++) {
         for(Source * source1 = start->next; source1 != nullptr;) {
             Source * NewSource = source1->next;
-            if(source1->statusFlag > source1->prev->statusFlag) {
+            if(source1->statusFlag < source1->prev->statusFlag) {
+
+                Source * prev = source1->prev->prev;
+                Source * next = source1->prev;
+
+                if(source1->prev->prev != nullptr)
+                    source1->prev->prev->next = source1;
+
+                if(source1->next != nullptr)
+                    source1->next->prev = source1->prev;
+
+                if(source1->prev == start)
+                    start = source1;
+                if(source1 == end)
+                    end = source1->prev;
+            
+                source1->prev->next = source1->next;
+                source1->prev->prev = source1;
+
+                source1->prev = prev;
+                source1->next = next;
+            }
+            source1 = NewSource;
+        }
+    }
+}
+
+void List :: SortSignificance() {
+    for(int i = 0; i < size; i++) {
+        for(Source * source1 = start->next; source1 != nullptr;) {
+            Source * NewSource = source1->next;
+            if(source1->significanceFlag > source1->prev->significanceFlag) {
+
+                Source * prev = source1->prev->prev;
+                Source * next = source1->prev;
+
+                if(source1->prev->prev != nullptr)
+                    source1->prev->prev->next = source1;
+
+                if(source1->next != nullptr)
+                    source1->next->prev = source1->prev;
+
+                if(source1->prev == start)
+                    start = source1;
+                if(source1 == end)
+                    end = source1->prev;
+            
+                source1->prev->next = source1->next;
+                source1->prev->prev = source1;
+
+                source1->prev = prev;
+                source1->next = next;
+            }
+            source1 = NewSource;
+        }
+    }
+}
+
+void List :: SortIndex() {
+    for(int i = 0; i < size; i++) {
+        for(Source * source1 = start->next; source1 != nullptr;) {
+            Source * NewSource = source1->next;
+            if(source1->index < source1->prev->index) {
 
                 Source * prev = source1->prev->prev;
                 Source * next = source1->prev;
@@ -617,6 +679,7 @@ void List :: SortList() {
             SortStatus();
             break;
         } else if(cmd == "significance") {
+            SortSignificance();
             break;
         }  else {
             cout << "”казанное поле введене неправильно!\n";
@@ -625,34 +688,34 @@ void List :: SortList() {
 }
 
 void GetStartMenu() {
-    cout << " _____________________________________________________\n";
-    cout << "|                                                     |\n";
-    cout << "|             K N O W L E D G E   B A S E             |\n";
-    cout << "|_____________________________________________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "|  add {Ќазвание источника}   |   добавить источник   |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "| delete {Ќазвание источника} |    удалить источник   |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "| update {Ќазвание источника} | редактровать источник |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "|             start           |  отобразить источники |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "|  open {Ќазвание источника}  |   открыть в браузере  |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "|             sort            | отсортировать таблицу |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "|             help            |   отобразить команды  |\n";
-    cout << "|_____________________________|_______________________|\n";
-    cout << "|                             |                       |\n";
-    cout << "|             exit            |  завершить программу  |\n";
-    cout << "|_____________________________|_______________________|\n";
+    cout << " ___________________________________________________________\n";
+    cout << "|                                                           |\n";
+    cout << "|                 K N O W L E D G E   B A S E               |\n";
+    cout << "|___________________________________________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "|  add {Ќазвание источника}   |       добавить источник     |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "| delete {Ќазвание источника} |        удалить источник     |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "| update {Ќазвание источника} |    редактровать источник    |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "|             start           |  считать источники из файла |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "|  open {Ќазвание источника}  |      открыть в браузере     |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "|             sort            |    отсортировать таблицу    |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "|             help            |      отобразить команды     |\n";
+    cout << "|_____________________________|_____________________________|\n";
+    cout << "|                             |                             |\n";
+    cout << "|             exit            |     завершить программу     |\n";
+    cout << "|_____________________________|_____________________________|\n";
 }
 
 void LaunchTable(List * list) {
